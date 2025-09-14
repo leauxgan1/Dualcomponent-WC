@@ -11,3 +11,5 @@ To use this component super class, simply create elements that extend the DualCo
  - "shadowed" - boolean: Append elements to the shadow dom if true, leave in light dom if false
  - "shadowRootOpen" - boolean: Use "mode": "open" if true, otherwise use "mode": "closed" for the shadowRoot.
  - "style" - string: Custom styles for this custom element that will override global styles when component is not shadowed.
+
+ See a demo of this in action at [this page](https://leauxgan1.github.io/Dualcomponent-WC/).
