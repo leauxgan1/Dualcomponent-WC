@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hello, world!</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="">
+  <link rel="icon" href="favicon.png">
+  <style>
+    body {
+      background: black;
+    }
+
+    html {
+      color: white;
+      text-align: center;
+    }
+
+    button {
+      color: blue;
+      background: #ccc;
+      border-radius: 8px;
+      padding: 1em;
+    }
+
+    ul {
+      margin: auto;
+      list-style: none;
+      max-width: 50%;
+    }
+
+    li {
+      padding: 1em;
+      margin: 0.1em;
+      background: gray;
+      border: 2px solid white;
+      text-wrap: wrap;
+      overflow-wrap: anywhere;
+    }
+  </style>
+  <script defer src="./dualcomponent.js"></script>
+  <script defer src="./components.js"></script>
+</head>
+
+<body>
+  <h1>Dual-Components</h1>
+  <h3>Switch webcomponents in or out of the shadow-dom</h3>
+  <hr>
+  <h2> Styling </h2>
+  <p> Normally all buttons with global styling look like this: </p>
+  <button> I am a button! </button>
+  <p> Light components (not using the shadow dom) may have their own styling provided which acts as an override of these
+    styles </p>
+  <custom-widget-light>
+    <button> Play </button>
+    <button> Pause </button>
+  </custom-widget-light>
+
+  <p> Shadowed components (using the shadow dom) may have their own styling provided which will disregard global styles
+    and only use its own styles </p>
+  <custom-widget-shadow>
+    <button> Play </button>
+    <button> Pause </button>
+  </custom-widget-shadow>
+  <hr>
+  <h2>Classic clicker example</h2>
+  <p> The component below has a start and end property which are used to set the starting value and a maximum to count
+    up to </p>
+  <p> This component has attributes as well to determine its start an maximum values (max is set to 30) </p>
+  <clicker-wc-light start="11" end="30">
+    <button type="button">Click to increment</button>
+    <p>0</p>
+  </clicker-wc-light>
+  <clicker-wc-shadow start="11" end="30">
+    <button type="button">Click to increment</button>
+    <p>0</p>
+  </clicker-wc-shadow>
+  <hr>
+  <h2> Client-side Sorted List </h2>
+  <p> The below list would normally be "out", "of", "order", but they have been put in alphabetical order! </p>
+  <p> Add some elements and choose your own sorting strategy </p>
+  <sorted-list>
+    <form>
+      <input type="text">
+      <button type="button" id="asc-button"> Set Ascending </button>
+      <button type="button" id="desc-button"> Set Descending </button>
+    </form>
+    <ul>
+      <li> out </li>
+      <li> of </li>
+      <li> order </li>
+    </ul>
+  </sorted-list>
+  <hr>
+  <h2> Graceful Degradation </h2>
+  <p> Another benefit of including the html in the component itself is the ability to gracefully degrade components to
+    their inner html in a no-js environment</p>
+  <p> Try disabling js in your browser (about:config) and see how this site looks! </p>
+</body>
+
+</html>
