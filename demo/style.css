@@ -1,0 +1,41 @@
+body {
+  background: black;
+}
+
+pre,
+code {
+  text-align: left;
+}
+
+pre {
+  display: grid;
+  place-items: center;
+}
+
+
+html {
+  color: white;
+  text-align: center;
+}
+
+button {
+  color: blue;
+  background: #ccc;
+  border-radius: 8px;
+  padding: 1em;
+}
+
+ul {
+  margin: auto;
+  list-style: none;
+  max-width: 50%;
+}
+
+li {
+  padding: 1em;
+  margin: 0.1em;
+  background: gray;
+  border: 2px solid white;
+  text-wrap: wrap;
+  overflow-wrap: anywhere;
+}

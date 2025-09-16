@@ -7,44 +7,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="">
   <link rel="icon" href="favicon.png">
-  <style>
-    body {
-      background: black;
-    }
-
-    code {
-      text-align: left;
-      display: flex;
-      justify-content: center;
-    }
-
-    html {
-      color: white;
-      text-align: center;
-    }
-
-    button {
-      color: blue;
-      background: #ccc;
-      border-radius: 8px;
-      padding: 1em;
-    }
-
-    ul {
-      margin: auto;
-      list-style: none;
-      max-width: 50%;
-    }
-
-    li {
-      padding: 1em;
-      margin: 0.1em;
-      background: gray;
-      border: 2px solid white;
-      text-wrap: wrap;
-      overflow-wrap: anywhere;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" type="text/css">
   <script defer src="./dualcomponent.js"></script>
   <script defer src="./components.js"></script>
 </head>
@@ -54,10 +17,13 @@
   <h3>Switch webcomponents in or out of the shadow-dom</h3>
   <hr>
   <h2> How it works </h2>
-  <p> This technique relies upon using template tags with a new attribute called shadowRootMode which can automatically
-    attach the shadow dom while the html is parsed.</p>
-  <code>
-    <pre>
+  <p> This technique relies upon using template tags with a standardized attribute called shadowRootMode which can
+    automatically attach the shadow dom while the html is parsed.</p>
+  <p> This approach can be combined with slots to allow elements to accept any children on rerender, but I prefer
+    including the children under the template tag and interfacing with them directly in the webcomponent logic </p>
+
+  <pre>
+    <code>
       &lt;my-component&gt; &lt;!-- Uses the light dom by default --&gt;
       &lt;p&gt; I am a paragraph &lt;/p&gt;
       &lt;/my-component&gt;
@@ -67,8 +33,8 @@
       &lt;p&gt; I am a paragraph &lt;/p&gt;
       &lt;/template&gt;
       &lt;/my-component&gt;
-    </pre>
-  </code>
+    </code>
+  </pre>
 
   <hr>
   <h2> Styling </h2>
@@ -77,6 +43,12 @@
   <p> Light components (not using the shadow dom) may have their own styling provided and scoped to their custom element
     name, but that styling will leak out of the webcomponent </p>
   <custom-widget>
+    <style>
+      custom-widget button {
+        color: green;
+        border-color: green;
+      }
+    </style>
     <button> Play </button>
     <button> Pause </button>
   </custom-widget>
@@ -121,6 +93,13 @@
   </clicker-wc>
   <clicker-wc start="11" end="30">
     <template shadowrootmode="open">
+      <style>
+        button {
+          color: red;
+          padding: 2px;
+          border: 2px dashed red;
+        }
+      </style>
       <button type="button">Click to increment</button>
       <p>0</p>
     </template>
@@ -130,41 +109,43 @@
   <p> The below list would normally be "out", "of", "order", but they have been put in alphabetical order! </p>
   <p> Add some elements and choose your own sorting strategy </p>
   <sorted-list>
-    <style>
-      html {
-        color: white;
-        text-align: center;
-      }
+    <template shadowrootmode="open">
+      <style>
+        html {
+          color: white;
+          text-align: center;
+        }
 
-      ul {
-        margin: auto;
-        list-style: none;
-        max-width: 50%;
-      }
+        ul {
+          margin: auto;
+          list-style: none;
+          max-width: 50%;
+        }
 
-      li {
-        padding: 1em;
-        margin: 0.1em;
-        background: gray;
-        border: 2px solid white;
-        text-wrap: wrap;
-        overflow-wrap: anywhere;
-      }
+        li {
+          padding: 1em;
+          margin: 0.1em;
+          background: gray;
+          border: 2px solid white;
+          text-wrap: wrap;
+          overflow-wrap: anywhere;
+        }
 
-      button {
-        border: 3px solid blue;
-      }
-    </style>
-    <form>
-      <input type="text">
-      <button type="button" id="asc-button"> Set Ascending </button>
-      <button type="button" id="desc-button"> Set Descending </button>
-    </form>
-    <ul>
-      <li> out </li>
-      <li> of </li>
-      <li> order </li>
-    </ul>
+        button {
+          border: 3px solid blue;
+        }
+      </style>
+      <form>
+        <input type="text">
+        <button type="button" id="asc-button"> Set Ascending </button>
+        <button type="button" id="desc-button"> Set Descending </button>
+      </form>
+      <ul>
+        <li> out </li>
+        <li> of </li>
+        <li> order </li>
+      </ul>
+    </template>
   </sorted-list>
   <hr>
   <h2> Graceful Degradation </h2>

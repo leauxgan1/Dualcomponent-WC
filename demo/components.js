@@ -1,37 +1,14 @@
 
-class CustomWidget extends DualComponent {
+class CustomWidget extends HTMLElement {
   constructor() {
     super();
   }
 }
 
-class Clicker extends DualComponent {
+class Clicker extends HTMLElement {
   constructor() {
     super();
-    // WC properties
-    this.count = parseInt(this.getAttribute("start")) || 0;
-    this.max = parseInt(this.getAttribute("end")) || 100;
-
-    this.button = this.root.querySelector("button");
-    this.label = this.root.querySelector("p");
-
-    this.button.addEventListener("click", this);
-  }
-  connectedCallback() {
-    this.label.textContent = this.count.toString();
-  }
-  handleEvent(event) {
-    if (event.type == "click") {
-      if (this.count < this.max) {
-        this.count += 1;
-        this.label.textContent = this.count.toString();
-      }
-    }
-  }
-}
-class Clicker extends DualComponent {
-  constructor() {
-    super();
+    this.root = this.shadowRoot || this;
     // WC properties
     this.count = parseInt(this.getAttribute("start")) || 0;
     this.max = parseInt(this.getAttribute("end")) || 100;
@@ -54,13 +31,14 @@ class Clicker extends DualComponent {
   }
 }
 
-class SortedList extends DualComponent {
+class SortedList extends HTMLElement {
   static observedAttributes = ["ascending", "num-items"];
   #listItems = [];
 
   constructor() {
-
     super();
+    this.root = this.shadowRoot || this;
+
     this.form = this.root.querySelector("form");
     this.input = this.form.querySelector("input");
     this.list = this.root.querySelector("ul");
@@ -126,8 +104,6 @@ class SortedList extends DualComponent {
   }
 }
 
-customElements.define("custom-widget-light", CustomWidgetLight);
-customElements.define("custom-widget-shadow", CustomWidgetShadow);
-customElements.define("clicker-wc-light", ClickerLight);
-customElements.define("clicker-wc-shadow", ClickerShadow);
+customElements.define("custom-widget", CustomWidget);
+customElements.define("clicker-wc", Clicker);
 customElements.define("sorted-list", SortedList);
