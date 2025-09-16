@@ -1,39 +1,13 @@
 
-class CustomWidgetLight extends DualComponent {
+class CustomWidget extends DualComponent {
   constructor() {
-    const style = `
-      button {
-        outline: 4px solid white;
-        color: red;
-      }
-    `;
-    super({"shadowed": false, "shadowRootOpen": true, "style": style});
+    super();
   }
 }
-class CustomWidgetShadow extends DualComponent {
-  constructor() {
-    const style = `
-      button {
-        outline: 4px solid white;
-        color: red;
-      }
-    `;
-    super({"shadowed": true, "shadowRootOpen": true, "style": style});
-  }
-}
-class ClickerShadow extends DualComponent {
-  constructor() {
-    const style = `
-      button {
-        color: red;
-        background-color: #222;
-      }
-      clicker-wc {
-        background: white;
-      }
-    `;
-    super({"shadowed": true, "shadowRootOpen": true, "style": style});
 
+class Clicker extends DualComponent {
+  constructor() {
+    super();
     // WC properties
     this.count = parseInt(this.getAttribute("start")) || 0;
     this.max = parseInt(this.getAttribute("end")) || 100;
@@ -55,19 +29,9 @@ class ClickerShadow extends DualComponent {
     }
   }
 }
-class ClickerLight extends DualComponent {
+class Clicker extends DualComponent {
   constructor() {
-    const style = `
-      button {
-        color: red;
-        background-color: #222;
-      }
-      clicker-wc {
-        background: white;
-      }
-    `;
-    super({"shadowed": false, "shadowRootOpen": true, "style": style});
-
+    super();
     // WC properties
     this.count = parseInt(this.getAttribute("start")) || 0;
     this.max = parseInt(this.getAttribute("end")) || 100;
@@ -95,30 +59,8 @@ class SortedList extends DualComponent {
   #listItems = [];
 
   constructor() {
-    const style = `
-      html {
-        color: white;
-        text-align: center;
-      }
-      ul {
-        margin: auto;
-        list-style: none;
-        max-width: 50%;
-      }
-      li {
-        padding: 1em;
-        margin: 0.1em;
-        background: gray;
-        border: 2px solid white;
-        text-wrap: wrap;
-        overflow-wrap: anywhere;
-      }
-      button {
-        border: 3px solid blue;
-      }
 
-    `;
-    super({"shadowed": false, "shadowRootOpen": true,  "style": style});
+    super();
     this.form = this.root.querySelector("form");
     this.input = this.form.querySelector("input");
     this.list = this.root.querySelector("ul");

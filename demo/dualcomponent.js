@@ -16,31 +16,15 @@
 //    styles to be used for the shadow dom if it is present, otherwise the styles are overrides for this component 
  
 class DualComponent extends HTMLElement {
-    constructor(options) {
+    constructor() {
       super();
-      if (!options) {
-        this.root = this;
-        return;
-      }
-      if(options["shadowed"]) {
-        const isOpen = options["shadowRootOpen"] === true;
-        this.root = this.attachShadow({"mode": isOpen ? "open" : "closed"})
-
-        const children = Array.from(this.children);
-        for (const child of children) {
-          this.root.appendChild(child);
-        }
-        if (options["style"] != "") {
-          const style = document.createElement("style");
-          style.textContent = options["style"];
-          this.root.appendChild(style);
-        }
+      const internals = this.attachInternals();
+      console.log(internals);
+      const shadow = internals.shadowRoot;
+      if (shadow) {
+        this.root = shadow;
       } else {
         this.root = this;
-        const style = document.createElement("style");
-        style.textContent = this.tagName + " { " + options["style"] + " }";
-        this.root.appendChild(style);
-
-      } 
+      }
     }
 }

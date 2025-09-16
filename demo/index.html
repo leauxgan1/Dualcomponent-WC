@@ -12,6 +12,12 @@
       background: black;
     }
 
+    code {
+      text-align: left;
+      display: flex;
+      justify-content: center;
+    }
+
     html {
       color: white;
       text-align: center;
@@ -47,40 +53,108 @@
   <h1>Dual-Components</h1>
   <h3>Switch webcomponents in or out of the shadow-dom</h3>
   <hr>
+  <h2> How it works </h2>
+  <p> This technique relies upon using template tags with a new attribute called shadowRootMode which can automatically
+    attach the shadow dom while the html is parsed.</p>
+  <code>
+    <pre>
+      &lt;my-component&gt; &lt;!-- Uses the light dom by default --&gt;
+      &lt;p&gt; I am a paragraph &lt;/p&gt;
+      &lt;/my-component&gt;
+
+      &lt;my-component&gt; &lt;!-- Uses the shadow dom and attaches it to the parent of the template --&gt;
+      &lt;template shadowrootmode='open'&gt;
+      &lt;p&gt; I am a paragraph &lt;/p&gt;
+      &lt;/template&gt;
+      &lt;/my-component&gt;
+    </pre>
+  </code>
+
+  <hr>
   <h2> Styling </h2>
   <p> Normally all buttons with global styling look like this: </p>
   <button> I am a button! </button>
-  <p> Light components (not using the shadow dom) may have their own styling provided which acts as an override of these
-    styles </p>
-  <custom-widget-light>
+  <p> Light components (not using the shadow dom) may have their own styling provided and scoped to their custom element
+    name, but that styling will leak out of the webcomponent </p>
+  <custom-widget>
     <button> Play </button>
     <button> Pause </button>
-  </custom-widget-light>
+  </custom-widget>
 
   <p> Shadowed components (using the shadow dom) may have their own styling provided which will disregard global styles
     and only use its own styles </p>
-  <custom-widget-shadow>
-    <button> Play </button>
+  <custom-widget>
+    <template shadowrootmode="open">
+      <style>
+        button {
+          color: red;
+          border-color: red;
+        }
+      </style>
+      <button> Play </button>
+      <button> Pause </button>
+    </template>
+  </custom-widget>
+  <p> Shadow and light sections can be created in the wc as well by encapsulating the template tag!</p>
+  <custom-widget>
+    <span>
+      <template shadowrootmode="open">
+        <style>
+          button {
+            color: green;
+            border-color: green;
+          }
+        </style>
+        <button> Play </button>
+      </template>
+    </span>
     <button> Pause </button>
-  </custom-widget-shadow>
+  </custom-widget>
   <hr>
   <h2>Classic clicker example</h2>
   <p> The component below has a start and end property which are used to set the starting value and a maximum to count
     up to </p>
   <p> This component has attributes as well to determine its start an maximum values (max is set to 30) </p>
-  <clicker-wc-light start="11" end="30">
+  <clicker-wc start="11" end="30">
     <button type="button">Click to increment</button>
     <p>0</p>
-  </clicker-wc-light>
-  <clicker-wc-shadow start="11" end="30">
-    <button type="button">Click to increment</button>
-    <p>0</p>
-  </clicker-wc-shadow>
+  </clicker-wc>
+  <clicker-wc start="11" end="30">
+    <template shadowrootmode="open">
+      <button type="button">Click to increment</button>
+      <p>0</p>
+    </template>
+  </clicker-wc>
   <hr>
   <h2> Client-side Sorted List </h2>
   <p> The below list would normally be "out", "of", "order", but they have been put in alphabetical order! </p>
   <p> Add some elements and choose your own sorting strategy </p>
   <sorted-list>
+    <style>
+      html {
+        color: white;
+        text-align: center;
+      }
+
+      ul {
+        margin: auto;
+        list-style: none;
+        max-width: 50%;
+      }
+
+      li {
+        padding: 1em;
+        margin: 0.1em;
+        background: gray;
+        border: 2px solid white;
+        text-wrap: wrap;
+        overflow-wrap: anywhere;
+      }
+
+      button {
+        border: 3px solid blue;
+      }
+    </style>
     <form>
       <input type="text">
       <button type="button" id="asc-button"> Set Ascending </button>
